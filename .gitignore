@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SmsApp/.vs/SmsApp/v17
+/SmsApp/.vs/SmsApp
+/SmsApp/Sms.Application/obj/Debug/net8.0
+/SmsApp/Sms.Application/obj
+/SmsApp/Sms.Domain/bin/Debug/net8.0
+/SmsApp/Sms.Domain/obj
+/SmsApp/Sms.Infra.Data/obj
+/SmsApp/Sms.Infra.Ioc/obj
+/SmsApp/Sms.WebApi/bin/Debug/net8.0
+/SmsApp/Sms.WebApi/obj/Debug/net8.0
+/SmsApp/Sms.WebApi/obj
