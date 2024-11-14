@@ -14,3 +14,7 @@
 /SmsApp/Sms.WebApi/obj/Debug/net8.0
 /SmsApp/Sms.WebApi/obj
 /SmsApp/.vs/ProjectEvaluation
+/SmsApp/Sms.Application/bin/Debug/net8.0
+*.targets
+/SmsApp/Sms.Infra.Data/bin/Debug/net8.0
+/SmsApp/Sms.Infra.Ioc/bin/Debug/net8.0
