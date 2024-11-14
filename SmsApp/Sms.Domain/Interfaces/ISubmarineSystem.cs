@@ -4,7 +4,7 @@ namespace Sms.Domain.Interfaces
 {
     public interface ISubmarineSystem
     {
-        Task<IEnumerable<SubmarineSystem>> GetCourse();
+        Task<IEnumerable<SubmarineSystem>> GetSystems();
 
         Task<SubmarineSystem> GetById(int? id);
 
