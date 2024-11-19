@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sms.Infra.Data.Repositories
 {
-    public class SubmarineSystemRepository : ISubmarineSystem
+    public class SubmarineSystemRepository : ISubmarineSystemRepository
     {
         private readonly ApplicationDbContext _context;
 
