@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
 using Sms.Infra.Data.Repositories;
-
 
 namespace Sms.Infra.Ioc
 {
@@ -16,7 +16,7 @@ namespace Sms.Infra.Ioc
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             // Register repositories
-            services.AddScoped<SubmarineSystemRepository, SubmarineSystemRepository>();
+            services.AddScoped<ISubmarineSystem, SubmarineSystemRepository>();
 
             // Register other necessary services
             return services;

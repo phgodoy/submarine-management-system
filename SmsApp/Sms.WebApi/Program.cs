@@ -9,33 +9,55 @@ namespace Sms.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container (only controllers for API)
-            builder.Services.AddControllers();  // Adiciona apenas os controllers para a API
+            // Log inicial
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
 
-            // Add the IConfiguration instance to the dependency injection container
+            // Add services to the container (only controllers for API)
+            builder.Services.AddControllers();
+
+            // Add Swagger (configurado para ser habilitado em produção, caso necessário)
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            // Add infrastructure services
             builder.Services.AddInfrastructure(builder.Configuration);
+
             var app = builder.Build();
 
+            // Log o ambiente atual
+            app.Logger.LogInformation("Starting application in {Environment} environment.", app.Environment.EnvironmentName);
+
             // Configure the HTTP request pipeline
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("EnableSwaggerInProduction"))
             {
-                // In Development environment, use Swagger for API documentation
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            else
+            {
+                // Opcional: Habilitar Swagger em produção apenas com uma configuração segura
+                var enableSwaggerInProduction = app.Configuration.GetValue<bool>("EnableSwaggerInProduction");
+                if (enableSwaggerInProduction)
+                {
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+                }
+            }
 
+            // Enable HTTPS redirection
             app.UseHttpsRedirection();
 
-            // Enable CORS (Cross-Origin Resource Sharing) if necessary (e.g., for frontend apps)
+            // Enable CORS
             app.UseCors(options =>
-                options.AllowAnyOrigin()  // Allow all origins for simplicity (can be restricted in production)
-                    .AllowAnyMethod()  // Allow all HTTP methods (GET, POST, PUT, DELETE)
-                    .AllowAnyHeader()); // Allow all headers (can be restricted)
+                options.WithOrigins("https://example.com", "https://anotherdomain.com") // Permitir apenas os domínios confiáveis
+                       .AllowAnyMethod()
+                       .AllowAnyHeader());
 
             // Enable routing
             app.UseRouting();
 
-            // Enable authorization (if you have authentication or authorization mechanisms in place)
+            // Enable authorization (if necessary)
             app.UseAuthorization();
 
             // Map controllers to API endpoints
