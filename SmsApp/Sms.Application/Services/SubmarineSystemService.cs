@@ -2,6 +2,7 @@
 using Sms.Application.DTOs;
 using Sms.Application.Interfaces;
 using MediatR;
+using Sms.Application.SubmarineSystems.Queries;
 
 namespace Sms.Application.Services
 {
@@ -10,7 +11,7 @@ namespace Sms.Application.Services
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public Task<IEnumerable<SubmarineSystemDTO>> GetSubmarineSystems()
+        public async Task<IEnumerable<SubmarineSystemDTO>> GetSubmarineSystems()
         {
             var SubmarineSystemsQuery = new GetSubmarineSystemsQuery();
 
