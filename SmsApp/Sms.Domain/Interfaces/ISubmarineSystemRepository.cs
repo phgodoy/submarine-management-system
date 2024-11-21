@@ -2,7 +2,7 @@
 
 namespace Sms.Domain.Interfaces
 {
-    public interface ISubmarineSystem
+    public interface ISubmarineSystemRepository
     {
         Task<IEnumerable<SubmarineSystem>> GetSystems();
 

@@ -16,7 +16,7 @@ namespace Sms.Infra.Ioc
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             // Register repositories
-            services.AddScoped<ISubmarineSystem, SubmarineSystemRepository>();
+            services.AddScoped<ISubmarineSystemRepository, SubmarineSystemRepository>();
 
             // Register other necessary services
             return services;
