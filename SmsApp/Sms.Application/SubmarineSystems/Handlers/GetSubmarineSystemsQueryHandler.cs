@@ -16,11 +16,12 @@ namespace Sms.Application.SubmarineSystems.Handlers
 
         public async Task<IEnumerable<SubmarineSystem>> Handle(GetSubmarineSystemsQuery request, CancellationToken cancellationToken)
         {
+           
             var submarineSystems = await _submarineSystemRepository.GetSystems();
 
             if (submarineSystems == null || !submarineSystems.Any())
             {
-                throw new ApplicationException("No submarine systems found");
+                throw new ApplicationException("No submarine systems found.");
             }
 
             return submarineSystems;

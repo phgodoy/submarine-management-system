@@ -1,10 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Sms.Application.SubmarineSystems.Commands;
-using Sms.Application.SubmarineSystems.Queries;
-using Sms.Domain.Entities;
-using Sms.Domain.Interfaces;
-using Sms.Infra.Data.Repositories;
+using Sms.Application.Interfaces;
 
 namespace Sms.WebApi.Controllers
 {
@@ -13,11 +9,11 @@ namespace Sms.WebApi.Controllers
     [Produces("application/json")]
     public class SubmarineSystemsController : ControllerBase
     {
-        private readonly ISubmarineSystemRepository _submarineSystemRepository;
+        private readonly ISubmarineSystemService _submarineSystemService;
 
-        public SubmarineSystemsController(ISubmarineSystemRepository submarineSystemRepository)
+        public SubmarineSystemsController(ISubmarineSystemService submarineSystemService)
         {
-            _submarineSystemRepository = submarineSystemRepository ?? throw new ArgumentNullException(nameof(submarineSystemRepository));
+            _submarineSystemService = submarineSystemService ?? throw new ArgumentNullException(nameof(submarineSystemService));
         }
 
         /// <summary>
@@ -29,7 +25,7 @@ namespace Sms.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
         {
-            var submarineSystems = await _submarineSystemRepository.GetSystems();
+            var submarineSystems = await _submarineSystemService.GetSubmarineSystems();
 
             if (submarineSystems == null || !submarineSystems.Any())
                 return NotFound("No submarine systems found.");

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sms.Application.Interfaces
 {
-    public interface ISubmarineSystem
+    public interface ISubmarineSystemService
     {
         Task<IEnumerable<SubmarineSystemDTO>> GetSubmarineSystems();
     }
