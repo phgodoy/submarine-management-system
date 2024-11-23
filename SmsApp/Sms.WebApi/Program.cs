@@ -1,5 +1,7 @@
 using Sms.Infra.Ioc;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Sms.WebApi
 {
@@ -34,28 +36,15 @@ namespace Sms.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            else
-            {
-                // Opcional: Habilitar Swagger em produção apenas com uma configuração segura
-                var enableSwaggerInProduction = app.Configuration.GetValue<bool>("EnableSwaggerInProduction");
-                if (enableSwaggerInProduction)
-                {
-                    app.UseSwagger();
-                    app.UseSwaggerUI();
-                }
-            }
 
             // Enable HTTPS redirection
             app.UseHttpsRedirection();
 
             // Enable CORS
             app.UseCors(options =>
-                options.WithOrigins("https://example.com", "https://anotherdomain.com") // Permitir apenas os domínios confiáveis
+                options.WithOrigins("https://example.com", "https://anotherdomain.com")
                        .AllowAnyMethod()
                        .AllowAnyHeader());
-
-            // Enable routing
-            app.UseRouting();
 
             // Enable authorization (if necessary)
             app.UseAuthorization();

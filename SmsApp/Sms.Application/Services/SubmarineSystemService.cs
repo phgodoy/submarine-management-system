@@ -6,10 +6,16 @@ using Sms.Application.SubmarineSystems.Queries;
 
 namespace Sms.Application.Services
 {
-    public class SubmarineSystemService : ISubmarineSystem
+    public class SubmarineSystemService : ISubmarineSystemService
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+
+        public SubmarineSystemService(IMediator mediator, IMapper mapper)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
 
         public async Task<IEnumerable<SubmarineSystemDTO>> GetSubmarineSystems()
         {

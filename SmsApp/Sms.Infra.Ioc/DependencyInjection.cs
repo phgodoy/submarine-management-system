@@ -1,6 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sms.Application.DTOs;
+using Sms.Application.Interfaces;
+using Sms.Application.Services;
+using Sms.Application.SubmarineSystems.Handlers;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
 using Sms.Infra.Data.Repositories;
@@ -18,7 +23,13 @@ namespace Sms.Infra.Ioc
             // Register repositories
             services.AddScoped<ISubmarineSystemRepository, SubmarineSystemRepository>();
 
+            // Register services
+            services.AddScoped<ISubmarineSystemService, SubmarineSystemService>();
+            services.AddAutoMapper(typeof(SubmarineSystemDTO));
+
             // Register other necessary services
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemsQueryHandler).Assembly));
+
             return services;
         }
     }
