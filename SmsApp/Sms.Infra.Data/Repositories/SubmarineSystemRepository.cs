@@ -21,7 +21,7 @@ namespace Sms.Infra.Data.Repositories
             return submarineSystem;
         }
 
-        public async Task<SubmarineSystem> GetById(int? id)
+        public async Task<SubmarineSystem> GetSubmarineSystemById(int? id)
         {
             return await _context.SubmarineSystems.FindAsync(id);
         }

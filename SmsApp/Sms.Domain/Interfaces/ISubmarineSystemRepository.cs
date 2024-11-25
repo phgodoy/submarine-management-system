@@ -6,7 +6,7 @@ namespace Sms.Domain.Interfaces
     {
         Task<IEnumerable<SubmarineSystem>> GetSystems();
 
-        Task<SubmarineSystem> GetById(int? id);
+        Task<SubmarineSystem> GetSubmarineSystemById(int? id);
 
         Task<SubmarineSystem> Create(SubmarineSystem submarineSystem);
 

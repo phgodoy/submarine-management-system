@@ -37,6 +37,18 @@ namespace Sms.WebApi.Controllers
         /// Get a submarine system by ID.
         /// </summary>
         /// <param name="id">The ID of the submarine system</param>
-        /// <returns>Submarine system details</
+        /// <returns>Submarine system details</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var submarineSystem = await _submarineSystemService.GetSubmarineSystemById(id);
+
+            if (submarineSystem == null)
+                return NotFound("Submarine system not found.");
+
+            return Ok(submarineSystem);
+        }
     }
 }

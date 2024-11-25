@@ -3,11 +3,11 @@ using Sms.Domain.Entities;
 
 namespace Sms.Application.SubmarineSystems.Queries
 {
-    internal class GetSubmarineSystemsByIdQuery : IRequest<SubmarineSystem>
+    public class GetSubmarineSystemByIdQuery : IRequest<SubmarineSystem>
     {
         public int Id { get; set; }
 
-        public GetSubmarineSystemsByIdQuery(int id)
+        public GetSubmarineSystemByIdQuery(int id)
         {
             Id = id;
         }

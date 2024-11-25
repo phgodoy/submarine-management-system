@@ -30,5 +30,18 @@ namespace Sms.Application.Services
 
             return _mapper.Map<IEnumerable<SubmarineSystemDTO>>(result);
         }
+
+        public async Task<SubmarineSystemDTO> GetSubmarineSystemById(int id)
+        {
+            var submarineSystemQuery = new GetSubmarineSystemByIdQuery(id);
+
+            if (submarineSystemQuery == null)
+            {
+                throw new Exception($"Entity cloud not be loaded");
+            }
+            var result = await _mediator.Send(submarineSystemQuery);
+
+            return _mapper.Map<SubmarineSystemDTO>(result);
+        }
     }
 }
