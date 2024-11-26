@@ -5,6 +5,7 @@ using MediatR;
 using Sms.Application.SubmarineSystems.Queries;
 using Sms.Domain.Entities;
 using Sms.Application.Commands;
+using Sms.Application.SubmarineSystems.Commands;
 
 namespace Sms.Application.Services
 {
@@ -63,6 +64,30 @@ namespace Sms.Application.Services
             var result = await _mediator.Send(createCommand);
 
             return _mapper.Map<SubmarineSystemDTO>(result);
+        }
+
+        public async Task<SubmarineSystemDTO> UpdateSubmarineSystem(int id, SubmarineSystemDTO submarineSystem)
+        {
+            if (submarineSystem == null)
+                throw new ArgumentNullException(nameof(submarineSystem), "Submarine system data cannot be null.");
+
+            // Create the command
+            var updateCommand = new UpdateSubmarineSystemCommand(
+                submarineSystem.Id = id,
+                submarineSystem.Name,
+                submarineSystem.Type,
+                submarineSystem.OperationalStatus,
+                submarineSystem.LastMaintenanceDate
+            );
+
+            // Send the command to the handler
+            var updatedSubmarineSystem = await _mediator.Send(updateCommand);
+
+            if (updatedSubmarineSystem == null)
+                return null; // Return null if the submarine system was not found or could not be updated
+
+            // Map the updated entity to a DTO and return it
+            return _mapper.Map<SubmarineSystemDTO>(updatedSubmarineSystem);
         }
     }
 }

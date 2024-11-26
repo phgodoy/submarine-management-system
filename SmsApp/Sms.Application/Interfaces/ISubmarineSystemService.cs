@@ -26,5 +26,12 @@ namespace Sms.Application.Interfaces
         /// <param name="submarineSystem">The submarine system DTO to create.</param>
         /// <returns>The ID of the created submarine system.</returns>
         Task<SubmarineSystemDTO> CreateSubmarineSystem(SubmarineSystemDTO submarineSystem);
+
+        /// <summary>
+        /// Update a existent submarine system.
+        /// </summary>
+        /// <param name="submarineSystem">The submarine system DTO to update.</param>
+        /// <returns>new informations about the submarine system.</returns>
+        Task<SubmarineSystemDTO> UpdateSubmarineSystem(int id, SubmarineSystemDTO submarineSystem);
     }
 }
