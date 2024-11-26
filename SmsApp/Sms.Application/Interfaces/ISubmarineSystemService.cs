@@ -2,9 +2,29 @@
 
 namespace Sms.Application.Interfaces
 {
+    /// <summary>
+    /// Service interface for managing submarine systems.
+    /// </summary>
     public interface ISubmarineSystemService
     {
+        /// <summary>
+        /// Retrieves all submarine systems.
+        /// </summary>
+        /// <returns>A collection of submarine system DTOs.</returns>
         Task<IEnumerable<SubmarineSystemDTO>> GetSubmarineSystems();
-        Task <SubmarineSystemDTO> GetSubmarineSystemById(int id);
+
+        /// <summary>
+        /// Retrieves a submarine system by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the submarine system.</param>
+        /// <returns>The submarine system DTO, or null if not found.</returns>
+        Task<SubmarineSystemDTO> GetSubmarineSystemById(int id);
+
+        /// <summary>
+        /// Creates a new submarine system.
+        /// </summary>
+        /// <param name="submarineSystem">The submarine system DTO to create.</param>
+        /// <returns>The ID of the created submarine system.</returns>
+        Task<SubmarineSystemDTO> CreateSubmarineSystem(SubmarineSystemDTO submarineSystem);
     }
 }

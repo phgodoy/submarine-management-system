@@ -30,6 +30,8 @@ namespace Sms.Infra.Ioc
             // Register other necessary services
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemsQueryHandler).Assembly));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemByIdQueryHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateSubmarineSystemCommandHandler).Assembly));
+
             return services;
         }
     }

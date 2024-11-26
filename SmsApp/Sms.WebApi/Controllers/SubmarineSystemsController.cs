@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Sms.Application.DTOs;
 using Sms.Application.Interfaces;
+using Sms.Domain.Entities;
 
 namespace Sms.WebApi.Controllers
 {
@@ -49,6 +51,30 @@ namespace Sms.WebApi.Controllers
                 return NotFound("Submarine system not found.");
 
             return Ok(submarineSystem);
+        }
+
+        ///// <summary>
+        ///// Create a new submarine system.
+        ///// </summary>
+        ///// <param name="submarineSystem">The submarine system data</param>
+        ///// <returns>Created submarine system</returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateSubmarineSystem([FromBody] SubmarineSystemDTO submarineSystem)
+        {
+            if (submarineSystem == null)
+                return BadRequest("Invalid submarine system data.");
+
+            var createdSubmarineSystem = await _submarineSystemService.CreateSubmarineSystem(submarineSystem);
+
+            if (createdSubmarineSystem == null)
+                return BadRequest("Failed to create submarine system.");
+
+            return CreatedAtAction(
+              nameof(GetById), // Assume you have a Get method to retrieve the resource
+              new { id = createdSubmarineSystem.Id },
+              createdSubmarineSystem);
         }
     }
 }
