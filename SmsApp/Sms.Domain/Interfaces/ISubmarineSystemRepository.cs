@@ -12,6 +12,6 @@ namespace Sms.Domain.Interfaces
 
         Task<SubmarineSystem> Update(SubmarineSystem submarineSystem);
 
-        Task<SubmarineSystem> Remove(SubmarineSystem submarineSystem);
+        Task<bool> DisableSubmarineSystem(int id);
     }
 }

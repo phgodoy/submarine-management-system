@@ -89,5 +89,18 @@ namespace Sms.Application.Services
             // Map the updated entity to a DTO and return it
             return _mapper.Map<SubmarineSystemDTO>(updatedSubmarineSystem);
         }
+
+        public async Task<bool> DisableSubmarineSystem(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException("The ID must be greater than zero.", nameof(id));
+
+            var disableCommand = new DisableSubmarineSystemCommand(id);
+
+            var result = await _mediator.Send(disableCommand);
+
+            return result;
+        }
+
     }
 }

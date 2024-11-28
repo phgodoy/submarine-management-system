@@ -31,6 +31,12 @@ namespace Sms.Domain.Entities
             LastMaintenanceDate = lastMaintenanceDate;
         }
 
+        public void UpdateSubmarineSystem(string operationalStatus)
+        {
+            operationalStatus = operationalStatus.ToLower();
+            OperationalStatus = operationalStatus;
+        }
+
         private void ValidateDomain(string name, string type, string operationalStatus)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid: name is required");
