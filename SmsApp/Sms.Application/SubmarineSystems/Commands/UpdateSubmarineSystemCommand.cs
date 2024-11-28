@@ -1,17 +1,19 @@
 ﻿using MediatR;
 using Sms.Domain.Entities;
 
-namespace Sms.Application.Commands
+namespace Sms.Application.SubmarineSystems.Commands
 {
-    public class CreateSubmarineSystemCommand : IRequest<SubmarineSystem>
+    public class UpdateSubmarineSystemCommand : IRequest<SubmarineSystem>
     {
+        public int Id { get; set; }
         public string Name { get; }
         public string Type { get; }
         public string OperationalStatus { get; }
         public DateTime LastMaintenanceDate { get; }
 
-        public CreateSubmarineSystemCommand(string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
-        {
+        public UpdateSubmarineSystemCommand(int id, string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
+        {   
+            Id = id;
             Name = name;
             Type = type;
             OperationalStatus = operationalStatus;

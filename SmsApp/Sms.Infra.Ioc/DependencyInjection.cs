@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Sms.Application.DTOs;
 using Sms.Application.Interfaces;
 using Sms.Application.Services;
+using Sms.Application.SubmarineSystems.Commands;
 using Sms.Application.SubmarineSystems.Handlers;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
@@ -29,6 +30,10 @@ namespace Sms.Infra.Ioc
 
             // Register other necessary services
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemsQueryHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemByIdQueryHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateSubmarineSystemCommandHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UpdateSubmarineSystemCommandHandler).Assembly));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DisableSubmarineSystemCommandHandler).Assembly));
 
             return services;
         }
