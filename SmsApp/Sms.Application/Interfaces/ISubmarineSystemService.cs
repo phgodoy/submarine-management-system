@@ -42,5 +42,13 @@ namespace Sms.Application.Interfaces
         /// <param name="submarineSystemStatus">The new status for the submarine system.</param>
         /// <returns>A boolean indicating whether the operation was successful.</returns>
         Task<bool> DisableSubmarineSystem(int id);
+
+        /// <summary>
+        /// Enable a submarine system.
+        /// </summary>
+        /// <param name="id">The ID of the submarine system to enable.</param>
+        /// <param name="submarineSystemStatus">The new status for the submarine system.</param>
+        /// <returns>A boolean indicating whether the operation was successful.</returns>
+        Task<bool> EnableSubmarineSystem(int id);
     }
 }
