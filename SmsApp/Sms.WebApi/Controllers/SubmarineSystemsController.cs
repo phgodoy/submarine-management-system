@@ -136,5 +136,30 @@ namespace Sms.WebApi.Controllers
                 return StatusCode(500, new { Message = "An unexpected error occurred.", Details = ex.Message });
             }
         }
+
+        [HttpPut("{id}/enable")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EnableSubmarineSystem(int id)
+        {
+            try
+            {
+                var result = await _submarineSystemService.EnableSubmarineSystem(id);
+
+                if (!result)
+                    return NotFound(new { Message = $"Submarine system with ID {id} not found or update failed." });
+
+                return Ok(new { Message = "Submarine system status updated successfully." });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An unexpected error occurred.", Details = ex.Message });
+            }
+        }
     }
 }

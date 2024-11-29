@@ -102,5 +102,16 @@ namespace Sms.Application.Services
             return result;
         }
 
+        public async Task<bool> EnableSubmarineSystem(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException("The ID must be greater than zero.", nameof(id));
+
+            var disableCommand = new EnableSubmarineSystemCommand(id);
+
+            var result = await _mediator.Send(disableCommand);
+
+            return result;
+        }
     }
 }

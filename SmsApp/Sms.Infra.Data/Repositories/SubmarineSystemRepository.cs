@@ -44,12 +44,33 @@ namespace Sms.Infra.Data.Repositories
 
             // Verifica se o sistema já está desativado
             if (submarineSystem.OperationalStatus == "Disable")
-                return false; // Nenhuma alteração necessária
+                return false;
 
             // Atualiza o status operacional
             submarineSystem.UpdateSubmarineSystem("Disable");
 
             // Atualiza no banco de dados
+            _context.SubmarineSystems.Update(submarineSystem);
+            var changes = await _context.SaveChangesAsync();
+
+            return changes > 0;
+        }
+
+        public async Task<bool> EnableSubmarineSystem(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException("The ID must be greater than zero.", nameof(id));
+
+            var submarineSystem = await GetSubmarineSystemById(id);
+
+            if (submarineSystem == null)
+                throw new KeyNotFoundException($"No submarine system found with ID {id}.");
+
+            if (submarineSystem.OperationalStatus == " Enable")
+                return false; 
+
+            submarineSystem.UpdateSubmarineSystem("Enable");
+
             _context.SubmarineSystems.Update(submarineSystem);
             var changes = await _context.SaveChangesAsync();
 
