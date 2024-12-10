@@ -2,6 +2,8 @@ using Sms.Infra.Ioc;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using Sms.Infra.Data.Context;
 
 namespace Sms.WebApi
 {
@@ -24,6 +26,11 @@ namespace Sms.WebApi
 
             // Add infrastructure services
             builder.Services.AddInfrastructure(builder.Configuration);
+
+            // Add identity
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             var app = builder.Build();
 
