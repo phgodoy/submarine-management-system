@@ -1,9 +1,7 @@
 using Sms.Infra.Ioc;
-using Microsoft.Extensions.Configuration;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Sms.Infra.Data.Context;
+using Sms.Infra.Data.Identity;
 
 namespace Sms.WebApi
 {
@@ -24,13 +22,13 @@ namespace Sms.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Add infrastructure services
+            // Add infrastructure services (certifique-se de que a implementação de AddInfrastructure está correta)
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            // Add identity
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+            // Add identity - certifique-se de usar a classe de usuário customizada se necessário
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()  // Usando ApplicationUser em vez de IdentityUser
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             var app = builder.Build();
 
@@ -47,7 +45,7 @@ namespace Sms.WebApi
             // Enable HTTPS redirection
             app.UseHttpsRedirection();
 
-            // Enable CORS
+            // Enable CORS (aqui você pode adicionar os domínios que deseja permitir)
             app.UseCors(options =>
                 options.WithOrigins("https://example.com", "https://anotherdomain.com")
                        .AllowAnyMethod()
