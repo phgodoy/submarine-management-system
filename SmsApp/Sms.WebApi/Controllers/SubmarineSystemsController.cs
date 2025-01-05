@@ -1,14 +1,15 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Sms.Application.DTOs;
 using Sms.Application.Interfaces;
-using Sms.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Sms.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class SubmarineSystemsController : ControllerBase
     {
         private readonly ISubmarineSystemService _submarineSystemService;

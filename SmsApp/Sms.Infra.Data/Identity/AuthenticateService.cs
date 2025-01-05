@@ -5,10 +5,10 @@ namespace Sms.Infra.Data.Identity
 {
     public class AuthenticateService : IAuthenticate
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AuthenticateService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AuthenticateService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,8 +41,7 @@ namespace Sms.Infra.Data.Identity
 
         public async Task Logout()
         {
-           await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
         }
-
     }
 }

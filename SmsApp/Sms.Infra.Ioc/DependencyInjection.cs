@@ -5,10 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Sms.Application.DTOs;
 using Sms.Application.Interfaces;
 using Sms.Application.Services;
-using Sms.Application.SubmarineSystems.Commands;
 using Sms.Application.SubmarineSystems.Handlers;
+using Sms.Domain.Accont;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
+using Sms.Infra.Data.Identity;
 using Sms.Infra.Data.Repositories;
 
 namespace Sms.Infra.Ioc
@@ -28,13 +29,11 @@ namespace Sms.Infra.Ioc
             services.AddScoped<ISubmarineSystemService, SubmarineSystemService>();
             services.AddAutoMapper(typeof(SubmarineSystemDTO));
 
-            // Register other necessary services
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemsQueryHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSubmarineSystemByIdQueryHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateSubmarineSystemCommandHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UpdateSubmarineSystemCommandHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DisableSubmarineSystemCommandHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(EnableSubmarineSystemCommandHandler).Assembly));
+            // Register authenticate
+            services.AddScoped<IAuthenticate, AuthenticateService>();
+
+            // Register MediatR handlers from assembly
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetSubmarineSystemsQueryHandler>());
 
             return services;
         }
