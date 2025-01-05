@@ -59,17 +59,13 @@ namespace Sms.WebApi.Controllers
             }
 
             // Get roles associated with the user
-            var roles = await _userManager.GetRolesAsync(user);
+            //var roles = await _userManager.GetRolesAsync(user);
 
             // Generate the JWT token with roles included
-            var token = GenerateToken(request.Email, roles);
+            var token = GenerateToken(request.Email);
 
             // Return the token and expiration time
-            return Ok(new UserTokenDTO
-            {
-                Token = token,
-                Expiration = DateTime.UtcNow.AddHours(1) // The same duration as defined in the GenerateToken method
-            });
+            return Ok(token);
         }
 
         /// <summary>
@@ -117,37 +113,40 @@ namespace Sms.WebApi.Controllers
         /// <param name="email">User email</param>
         /// <param name="roles">User roles</param>
         /// <returns>Generated token</returns>
-        private string GenerateToken(string email, IEnumerable<string> roles)
+        private UserToken GenerateToken(string email)
         {
-            // Use the correct key from configuration
-            var jwtKey = _configuration["Jwt:SecretKey"];  // Alterado aqui para usar Jwt:SecretKey
-            if (string.IsNullOrEmpty(jwtKey))
+            var claims = new[]
             {
-                throw new InvalidOperationException("JWT SecretKey is not configured.");
-            }
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.Integer64),
-                new Claim("email", email) // Custom claim for email
+                new Claim("email", email),
+                new Claim("meuvalor", "oque voce quiser"),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            // Add roles to claims
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            var privateKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
 
-            var token = new JwtSecurityToken(
+            var credentials = new SigningCredentials(privateKey, SecurityAlgorithms.HmacSha256);
+
+            var expiration = DateTime.UtcNow.AddMinutes(10);
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                //emissor
                 issuer: _configuration["Jwt:Issuer"],
+                //audiencia
                 audience: _configuration["Jwt:Audience"],
+                //claims
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: creds);
+                //data de expiracao
+                expires: expiration,
+                //assinatura digital
+                signingCredentials: credentials
+                );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new UserToken()
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = expiration
+            };
         }
     }
 }

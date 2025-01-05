@@ -18,17 +18,19 @@ namespace Sms.WebApi
             // Add services to the container (only controllers for API)
             builder.Services.AddControllers();
 
-            // Add Swagger (configurado para ser habilitado em produção, caso necessário)
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            // Add Swagger
+            builder.Services.AddInfrastructureSwagger();
 
-            // Add infrastructure services (certifique-se de que a implementação de AddInfrastructure está correta)
+            // Add infrastructure services
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            // Add identity - certifique-se de usar a classe de usuário customizada se necessário
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()  // Usando ApplicationUser em vez de IdentityUser
+            // Add identity
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            // Configure JWT authentication
+            builder.Services.AddInfrastructureJWT(builder.Configuration);
 
             var app = builder.Build();
 
@@ -36,7 +38,7 @@ namespace Sms.WebApi
             app.Logger.LogInformation("Starting application in {Environment} environment.", app.Environment.EnvironmentName);
 
             // Configure the HTTP request pipeline
-            if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("EnableSwaggerInProduction"))
+            if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -44,14 +46,10 @@ namespace Sms.WebApi
 
             // Enable HTTPS redirection
             app.UseHttpsRedirection();
-
-            // Enable CORS (aqui você pode adicionar os domínios que deseja permitir)
-            app.UseCors(options =>
-                options.WithOrigins("https://example.com", "https://anotherdomain.com")
-                       .AllowAnyMethod()
-                       .AllowAnyHeader());
-
-            // Enable authorization (if necessary)
+            app.UseStatusCodePages();
+            // Enable authentication and authorization
+            app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             // Map controllers to API endpoints

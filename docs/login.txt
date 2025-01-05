@@ -1,0 +1,5 @@
+Example for login in api system:
+{
+    "email": "captain.submarine@example.com",
+    "password": "SubmarineCaptain2024@#"
+}
