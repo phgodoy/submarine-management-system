@@ -11,7 +11,7 @@ namespace Sms.Domain.Entities
 
         private SubmarineSystem() { }
 
-        public SubmarineSystem( string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
+        public SubmarineSystem(string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
         {
             ValidateDomain(name, type, operationalStatus);
             LastMaintenanceDate = lastMaintenanceDate;
@@ -31,22 +31,28 @@ namespace Sms.Domain.Entities
             LastMaintenanceDate = lastMaintenanceDate;
         }
 
-        public void UpdateSubmarineSystem(string operationalStatus)
+        public void UpdateOperationalStatus(string operationalStatus)
         {
-            operationalStatus = operationalStatus.ToLower();
-            OperationalStatus = operationalStatus;
+            ValidateOperationalStatus(operationalStatus);
+            OperationalStatus = operationalStatus.ToLower();
         }
 
         private void ValidateDomain(string name, string type, string operationalStatus)
         {
-            DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid: name is required");
+            DomainExceptionValidation.When(string.IsNullOrWhiteSpace(name), "Invalid: name is required");
             DomainExceptionValidation.When(name.Length < 3, "Invalid: name is too short");
-            DomainExceptionValidation.When(string.IsNullOrEmpty(type), "Invalid: type is required");
-            DomainExceptionValidation.When(string.IsNullOrEmpty(operationalStatus), "Invalid: operational status is required");
+            DomainExceptionValidation.When(string.IsNullOrWhiteSpace(type), "Invalid: type is required");
+            ValidateOperationalStatus(operationalStatus);
 
             Name = name;
             Type = type;
             OperationalStatus = operationalStatus;
+        }
+
+        private void ValidateOperationalStatus(string operationalStatus)
+        {
+            DomainExceptionValidation.When(string.IsNullOrWhiteSpace(operationalStatus), "Invalid: operational status is required");
+            // Add further validation if needed (e.g., allowed values for operational status)
         }
     }
 }

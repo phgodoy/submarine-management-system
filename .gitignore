@@ -18,3 +18,8 @@
 *.targets
 /SmsApp/Sms.Infra.Data/bin/Debug/net8.0
 /SmsApp/Sms.Infra.Ioc/bin/Debug/net8.0
+/SmsApp/Sms.Test/obj/Debug/net8.0/refint
+/SmsApp/Sms.Test/obj/Debug/net8.0/ref
+/SmsApp/Sms.Test/obj/Debug/net8.0
+/SmsApp/Sms.Test/obj
+/SmsApp/Sms.Test/bin/Debug/net8.0

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sms.Infra.Ioc", "Sms.Infra.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sms.WebApi", "Sms.WebApi\Sms.WebApi.csproj", "{D35B9A5F-A0C0-4840-946F-4FFCAFB9A148}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sms.Test", "Sms.Test\Sms.Test.csproj", "{6F429228-D243-4796-AB66-600508496EFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D35B9A5F-A0C0-4840-946F-4FFCAFB9A148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D35B9A5F-A0C0-4840-946F-4FFCAFB9A148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D35B9A5F-A0C0-4840-946F-4FFCAFB9A148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F429228-D243-4796-AB66-600508496EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F429228-D243-4796-AB66-600508496EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F429228-D243-4796-AB66-600508496EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F429228-D243-4796-AB66-600508496EFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
