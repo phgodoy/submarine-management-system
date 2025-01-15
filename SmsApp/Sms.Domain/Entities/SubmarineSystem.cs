@@ -9,6 +9,8 @@ namespace Sms.Domain.Entities
         public string OperationalStatus { get; private set; }
         public DateTime LastMaintenanceDate { get; private set; }
 
+        public IEnumerable<SubmarineSystemAssignment> SubmarineSystemAssignments { get; set; }
+
         private SubmarineSystem() { }
 
         public SubmarineSystem(string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
