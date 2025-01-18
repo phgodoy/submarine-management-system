@@ -2,9 +2,8 @@
 
 namespace Sms.Domain.Entities
 {
-    public class SubmarineSystemAssignment
+    public class SubmarineSystemAssignment : Entity
     {
-        public int Id { get; private set; }
         public int SubmarineId { get; private set; }
         public int SubmarineSystemId { get; private set; }
         public bool Status { get; private set; }
@@ -24,7 +23,7 @@ namespace Sms.Domain.Entities
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value.");
             ValidateDomain(submarineId, submarineSystemId);
-            Id = id;
+            ID = id;
             Status = status;
         }
 

@@ -2,9 +2,8 @@
 
 namespace Sms.Domain.Entities
 {
-    public class MaintenanceLog
+    public class MaintenanceLog : Entity
     {
-        public int Id { get; private set; }
         public int SubmarineSystemId { get; private set; }
         public DateTime MaintenanceDate { get; private set; }
         public string TechnicianName { get; private set; }
@@ -22,7 +21,7 @@ namespace Sms.Domain.Entities
         public MaintenanceLog(int id, int submarineSystemId, DateTime maintenanceDate, string technicianName, string notes)
         {
             DomainExceptionValidation.When(id < 0, "Invalid id value.");
-            Id = id;
+            ID = id;
             ValidateDomain(submarineSystemId, maintenanceDate, technicianName, notes);
         }
 
