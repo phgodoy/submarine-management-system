@@ -13,6 +13,8 @@ namespace Sms.Domain.Entities
 
         public IEnumerable<Alert> Alerts { get; private set; } = new List<Alert>();
 
+        public IEnumerable<SubmarineSystemSetting> SubmarineSystemSettings { get; private set; } = new List<SubmarineSystemSetting>();
+
         private SubmarineSystem() { }
 
         public SubmarineSystem(string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
