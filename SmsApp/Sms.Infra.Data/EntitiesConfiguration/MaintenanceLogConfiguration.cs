@@ -10,9 +10,9 @@ namespace Sms.Infra.Data.EntitiesConfiguration
         {
             builder.ToTable("MaintenanceLogs");
 
-            builder.HasKey(m => m.Id);
+            builder.HasKey(m => m.ID);
 
-            builder.Property(m => m.Id)
+            builder.Property(m => m.ID)
                 .HasColumnName("Id")
                 .IsRequired();
 

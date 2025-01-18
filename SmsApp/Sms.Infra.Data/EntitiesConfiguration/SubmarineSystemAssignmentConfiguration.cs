@@ -8,9 +8,9 @@ namespace Sms.Infra.Data.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<SubmarineSystemAssignment> builder)
         {
-            builder.HasKey(assignment => assignment.Id);
+            builder.HasKey(assignment => assignment.ID);
 
-            builder.Property(assignment => assignment.Id)
+            builder.Property(assignment => assignment.ID)
                 .HasColumnName("Id")
                 .IsRequired();
 

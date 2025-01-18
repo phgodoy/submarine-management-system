@@ -10,9 +10,9 @@ namespace Sms.Infra.Data.EntitiesConfiguration
         {
             builder.ToTable("Alerts");
 
-            builder.HasKey(a => a.Id);
+            builder.HasKey(a => a.ID);
 
-            builder.Property(a => a.Id)
+            builder.Property(a => a.ID)
                 .HasColumnName("Id")
                 .IsRequired();
 

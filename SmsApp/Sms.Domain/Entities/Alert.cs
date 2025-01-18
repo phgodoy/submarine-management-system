@@ -2,9 +2,8 @@
 
 namespace Sms.Domain.Entities
 {
-    public class Alert
+    public class Alert : Entity
     {
-        public int Id { get; private set; }
         public int SubmarineSystemId { get; private set; }
         public string AlertType { get; private set; }
         public string Message { get; private set; }
