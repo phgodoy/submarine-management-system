@@ -15,6 +15,7 @@ namespace Sms.Infra.Data.Context
         public DbSet<Submarine> Submarines { get; set; }
         public DbSet<SubmarineSystemAssignment> submarineSystemAssignments { get; set; }
         public DbSet<MaintenanceLog> MaintenanceLogs { get; set; }
+        public ICollection<Alert> Alerts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
