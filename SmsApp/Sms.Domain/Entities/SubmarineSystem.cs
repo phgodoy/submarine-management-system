@@ -11,6 +11,8 @@ namespace Sms.Domain.Entities
 
         public IEnumerable<SubmarineSystemAssignment> SubmarineSystemAssignments { get; set; }
 
+        public IEnumerable<Alert> Alerts { get; private set; } = new List<Alert>();
+
         private SubmarineSystem() { }
 
         public SubmarineSystem(string name, string type, string operationalStatus, DateTime lastMaintenanceDate)
