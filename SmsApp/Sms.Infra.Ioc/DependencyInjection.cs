@@ -25,7 +25,8 @@ namespace Sms.Infra.Ioc
             // Register repositories
             services.AddScoped<ISubmarineSystemRepository, SubmarineSystemRepository>();
             services.AddScoped<ISubmarineRepository, SubmarineRepository>();
-           
+            services.AddScoped<IMaintenanceLogRepository, MaintenanceLogRepository>();
+
 
             // Register services
             services.AddScoped<ISubmarineSystemService, SubmarineSystemService>();

@@ -10,7 +10,7 @@ namespace Sms.Domain.Entities
         public string Notes { get; private set; }
 
         public SubmarineSystem SubmarineSystem { get; private set; }
-
+    
         private MaintenanceLog() { }
 
         public MaintenanceLog(int submarineSystemId, DateTime maintenanceDate, string technicianName, string notes)

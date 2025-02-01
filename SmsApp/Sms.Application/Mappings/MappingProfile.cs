@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Sms.Application.Commands;
 using Sms.Application.DTOs;
-using Sms.Application.SubmarineSystems.Commands;
 using Sms.Domain.Entities;
 
 public class SubmarineSystemMappingProfile : Profile
