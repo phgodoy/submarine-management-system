@@ -26,4 +26,10 @@
     <ProjectReference Include="..\Sms.Domain\Sms.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="MaintenanceLogUnitTests\MaintenanceLogUnitTestCrud.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>
