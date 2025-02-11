@@ -1,4 +1,5 @@
-﻿using Sms.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Sms.Domain.Entities;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
 
@@ -20,50 +21,44 @@ namespace Sms.Infra.Data.Repositories
             return submarine;
         }
 
-        public async Task<Submarine> GetByIdAsync(int id)
+        public async Task<Submarine> GetSubmarineById(int? id)
         {
             return await _context.Submarines.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Submarine>> GetAllAsync()
+        public async Task<IEnumerable<Submarine>> GetSubmarines()
+        {
+            return await _context.Submarines.ToListAsync();
+        }
+
+        public async Task<bool> DisableSubmarine(int id)
+        {
+            throw new NotImplementedException();
+            //if (id <= 0)
+            //    throw new ArgumentException("The ID must be greater than zero.", nameof(id));
+
+            //var submarine = await GetSubmarineById(id);
+
+            //if (submarine == null)
+            //    throw new KeyNotFoundException($"No submarine system found with ID {id}.");
+
+            //if (submarine.Status.ToString() == "Disable")
+            //    return false;
+
+            //submarine.UpdateOperationalStatus("Disable");
+
+            //_context.SubmarineSystems.Update(submarine);
+            //var changes = await _context.SaveChangesAsync();
+
+            //return changes > 0;
+        }
+
+        public Task<bool> EnableSubmarine(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Submarine>> GetByStatusAsync(int status)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Submarine>> GetByModelAsync(string model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Submarine> UpdateAsync(Submarine submarine)
-        {
-            _context.Update(submarine);
-            await _context.SaveChangesAsync();
-            return submarine;
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var submarine = await GetByIdAsync(id);
-
-            if (submarine == null)
-                throw new KeyNotFoundException($"No submarine found with ID {id}.");
-
-            _context.Remove(submarine);
-            await _context.SaveChangesAsync();
-        }
-
-        public Task AddAsync(Submarine submarine)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task ISubmarineRepository.UpdateAsync(Submarine submarine)
+        public Task<Submarine> Update(Submarine submarine)
         {
             throw new NotImplementedException();
         }

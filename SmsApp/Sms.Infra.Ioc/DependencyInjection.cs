@@ -32,6 +32,9 @@ namespace Sms.Infra.Ioc
             services.AddScoped<ISubmarineSystemService, SubmarineSystemService>();
             services.AddAutoMapper(typeof(SubmarineSystemDTO));
 
+            services.AddScoped<ISubmarineService, SubmarineService>();
+            services.AddAutoMapper(typeof(SubmarineDto));
+
             // Register authenticate
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
