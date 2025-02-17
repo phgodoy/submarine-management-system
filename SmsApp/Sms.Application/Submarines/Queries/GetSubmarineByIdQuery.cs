@@ -1,12 +1,11 @@
 ﻿using MediatR;
-using Sms.Domain.Entities;
+using Sms.Application.Dtos;
 
 namespace Sms.Application.Submarines.Queries
 {
-    public class GetSubmarineByIdQuery : IRequest<Submarine>
+    public class GetSubmarineByIdQuery : IRequest<SubmarineDto>
     {
-        public int Id { get; }
-
+        public int Id { get; set; }
         public GetSubmarineByIdQuery(int id)
         {
             Id = id;

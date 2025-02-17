@@ -1,24 +1,31 @@
 ﻿using MediatR;
-using Sms.Domain.Entities;
+using Sms.Application.Submarines.Commands;
 using Sms.Domain.Interfaces;
 
-namespace Sms.Application.Submarines.Commands
+namespace Sms.Application.Submarines.Handlers
 {
     public class CreateSubmarineCommandHandler : IRequestHandler<CreateSubmarineCommand, Submarine>
     {
-        private readonly ISubmarineRepository _submarineRepository;
+        private readonly ISubmarineRepository _repository;
 
-        public CreateSubmarineCommandHandler(ISubmarineRepository submarineRepository)
+        public CreateSubmarineCommandHandler(ISubmarineRepository repository)
         {
-            _submarineRepository = submarineRepository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public async Task<Submarine> Handle(CreateSubmarineCommand request, CancellationToken cancellationToken)
         {
-            var submarine = new Submarine(request.Name, request.Model, request.CommissionedDate, request.Status);
+            if (request == null)
+                throw new ArgumentNullException(nameof(request), "The request cannot be null.");
 
-            await _submarineRepository.Create(submarine);
-            return submarine;
+            var submarine = new Submarine(
+                request.Name,
+                request.Model,
+                request.CreationDate,
+                request.SubmarineStatusId
+            );
+
+            return await _repository.Create(submarine);
         }
     }
 }

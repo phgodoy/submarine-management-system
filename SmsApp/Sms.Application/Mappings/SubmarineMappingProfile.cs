@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Sms.Application.DTOs;
 using Sms.Application.Submarines.Commands;
-using Sms.Domain.Entities;
+using Sms.Application.Dtos;
 
 namespace Sms.Application.Mappings
 {
@@ -9,7 +8,7 @@ namespace Sms.Application.Mappings
     {
         public SubmarineMappingProfile()
         {
-            // Mapeia DTO para Comando
+            // Mapping Dto for comand
             CreateMap<SubmarineDto, CreateSubmarineCommand>();
 
             // Mapeia Comando para Entidade de Domínio
