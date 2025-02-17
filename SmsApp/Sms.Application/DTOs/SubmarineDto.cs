@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sms.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace Sms.Application.DTOs
+namespace Sms.Application.Dtos
 {
+
     public class SubmarineDto
     {
         public int Id { get; set; }
@@ -17,9 +19,10 @@ namespace Sms.Application.DTOs
         public string Model { get; set; }
 
         [Required(ErrorMessage = "The Commissioned Date is required.")]
-        public DateTime CommissionedDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [Required(ErrorMessage = "The Status is required.")]
-        public int Status { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Status must be a non-negative integer.")]
+        public SubmarineStatusEnum SubmarineStatusId { get; set; }
     }
 }

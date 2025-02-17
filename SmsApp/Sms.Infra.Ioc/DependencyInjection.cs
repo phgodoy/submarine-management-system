@@ -1,11 +1,9 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sms.Application.DTOs;
 using Sms.Application.Interfaces;
 using Sms.Application.Services;
-using Sms.Application.SubmarineSystems.Handlers;
+using Sms.Application.Dtos;
 using Sms.Domain.Accont;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
@@ -23,15 +21,10 @@ namespace Sms.Infra.Ioc
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             // Register repositories
-            services.AddScoped<ISubmarineSystemRepository, SubmarineSystemRepository>();
             services.AddScoped<ISubmarineRepository, SubmarineRepository>();
-            services.AddScoped<IMaintenanceLogRepository, MaintenanceLogRepository>();
 
 
             // Register services
-            services.AddScoped<ISubmarineSystemService, SubmarineSystemService>();
-            services.AddAutoMapper(typeof(SubmarineSystemDTO));
-
             services.AddScoped<ISubmarineService, SubmarineService>();
             services.AddAutoMapper(typeof(SubmarineDto));
 
@@ -39,7 +32,7 @@ namespace Sms.Infra.Ioc
             services.AddScoped<IAuthenticate, AuthenticateService>();
 
             // Register MediatR handlers from assembly
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetSubmarineSystemsQueryHandler>());
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SubmarineService).Assembly));
 
             return services;
         }

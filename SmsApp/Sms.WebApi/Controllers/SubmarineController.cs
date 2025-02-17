@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sms.Application.DTOs;
+using Sms.Application.Dtos;
 using Sms.Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 namespace Sms.WebApi.Controllers
 {
@@ -34,7 +33,7 @@ namespace Sms.WebApi.Controllers
 
             return CreatedAtAction(
                 nameof(CreateSubmarine),
-                new { id = createdSubmarine.Id},
+                new { id = createdSubmarine.Id },
                 createdSubmarine);
         }
     }

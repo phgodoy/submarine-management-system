@@ -1,35 +1,40 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Sms.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace Sms.Infra.Data.EntitiesConfiguration
+public class SubmarineConfiguration : IEntityTypeConfiguration<Submarine>
 {
-    public class SubmarineConfiguration : IEntityTypeConfiguration<Submarine>
+    public void Configure(EntityTypeBuilder<Submarine> builder)
     {
-        public void Configure(EntityTypeBuilder<Submarine> builder)
-        {
-            builder.HasKey(s => s.ID);
+        builder.HasKey(s => s.ID);
 
-            builder.Property(s => s.ID)
-                .HasColumnName("ID");
+        builder.Property(s => s.ID)
+            .HasColumnName("Id");
 
-            builder.Property(s => s.Name)
-                .HasColumnName("Name")
-                .HasMaxLength(255)
-                .IsRequired();
+        builder.Property(s => s.Name)
+            .HasColumnName("Name")
+            .HasMaxLength(255)
+            .IsRequired();
 
-            builder.Property(s => s.Model)
-                .HasColumnName("Model")
-                .HasMaxLength(100)
-                .IsRequired();
+        builder.Property(s => s.Model)
+            .HasColumnName("Model")
+            .HasMaxLength(100)
+            .IsRequired();
 
-            builder.Property(s => s.CommissionedDate)
-                .HasColumnName("CommissionedDate")
-                .IsRequired();
+        builder.Property(s => s.CreationDate)
+            .HasColumnName("CreationDate")
+            .IsRequired();
 
-            builder.Property(s => s.Status)
-                .HasColumnName("Status")
-                .IsRequired();
-        }
+        // Configuração da chave estrangeira para SubmarineStatus
+        builder.Property(s => s.SubmarineStatusId)
+            .HasColumnName("SubmarineStatusId")
+            .IsRequired();
+
+        // Configuração do relacionamento com SubmarineStatus
+        builder.HasOne(s => s.SubmarineStatus)
+            .WithMany()
+            .HasForeignKey(s => s.SubmarineStatusId)
+            .IsRequired();
+
+        builder.HasIndex(s => s.CreationDate);
     }
 }

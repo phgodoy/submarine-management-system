@@ -4,18 +4,20 @@ using Sms.Domain.Enums;
 
 namespace Sms.Application.Submarines.Commands
 {
-    public class CreateSubmarineCommand : IRequest<Submarine>
+    public class UpdateSubmarineCommand : IRequest<bool>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Model { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime CommissionedDate { get; set; }
         public SubmarineStatusEnum SubmarineStatusId { get; set; }
 
-        public CreateSubmarineCommand(string name, string model, DateTime creationDate, SubmarineStatusEnum submarineStatusId)
+        public UpdateSubmarineCommand(int id, string name, string model, DateTime commissionedDate, SubmarineStatusEnum submarineStatusId)
         {
+            Id = id;
             Name = name;
             Model = model;
-            CreationDate = creationDate;
+            CommissionedDate = commissionedDate;
             SubmarineStatusId = submarineStatusId;
         }
     }
