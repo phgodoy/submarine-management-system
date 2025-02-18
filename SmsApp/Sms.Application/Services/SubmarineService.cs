@@ -24,7 +24,7 @@ namespace Sms.Application.Services
                 submarineDto.Name,
                 submarineDto.Model,
                 submarineDto.CreationDate,
-                submarineDto.SubmarineStatusId
+                submarineDto.SubmarineStatusDto.Id
             );
 
             var result = await _mediator.Send(createCommand);
@@ -64,7 +64,7 @@ namespace Sms.Application.Services
                 submarineDto.Name,
                 submarineDto.Model,
                 submarineDto.CreationDate,
-                submarineDto.SubmarineStatusId
+                submarineDto.SubmarineStatusDto.Id
             );
 
             var result = await _mediator.Send(updateCommand);
