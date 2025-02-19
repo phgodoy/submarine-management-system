@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sms.Domain.Entities;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
 
@@ -22,12 +23,16 @@ namespace Sms.Infra.Data.Repositories
 
         public async Task<Submarine> GetSubmarineById(int? id)
         {
-            return await _context.Submarines.FindAsync(id);
+            return await _context.Submarines
+                .Include(s => s.SubmarineStatus)
+                .FirstOrDefaultAsync(s => s.ID == id);
         }
 
         public async Task<IEnumerable<Submarine>> GetSubmarines()
         {
-            return await _context.Submarines.ToListAsync();
+            return await _context.Submarines
+                .Include(e => e.SubmarineStatus)
+                .ToListAsync();
         }
 
         public async Task<bool> DisableSubmarine(int id)

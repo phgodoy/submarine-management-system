@@ -1,4 +1,4 @@
-﻿using Sms.Domain.Enums;
+﻿using Sms.Application.Dtos;
 using System.ComponentModel.DataAnnotations;
 
 namespace Sms.Application.Dtos
@@ -22,7 +22,6 @@ namespace Sms.Application.Dtos
         public DateTime CreationDate { get; set; }
 
         [Required(ErrorMessage = "The Status is required.")]
-        [Range(0, int.MaxValue, ErrorMessage = "Status must be a non-negative integer.")]
-        public SubmarineStatusEnum SubmarineStatusId { get; set; }
+        public SubmarineStatusDto SubmarineStatusDto { get; set; }
     }
 }

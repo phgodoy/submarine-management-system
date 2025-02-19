@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Sms.Domain.Entities;
 using Sms.Domain.Enums;
 
 namespace Sms.Application.Submarines.Commands
