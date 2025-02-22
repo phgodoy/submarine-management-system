@@ -14,6 +14,7 @@ namespace Sms.Application.Mappings
 
             // Maps CreateSubmarineCommand to the Domain Entity Submarine
             CreateMap<CreateSubmarineCommand, Submarine>();
+            CreateMap<UpdateSubmarineCommand, Submarine>();
 
             // Maps the Domain Entity Submarine to SubmarineDto and includes SubmarineStatus mapping
             CreateMap<Submarine, SubmarineDto>()

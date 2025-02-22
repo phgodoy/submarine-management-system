@@ -33,7 +33,7 @@ namespace Sms.Application.Interfaces
         /// <param name="id">The ID of the submarine to update.</param>
         /// <param name="submarineDto">The updated submarine DTO.</param>
         /// <returns>Updated submarine information.</returns>
-        Task<SubmarineDto> UpdateSubmarine(int id, SubmarineDto submarineDto);
+        Task<bool> UpdateSubmarine(SubmarineDto submarineDto);
 
         /// <summary>
         /// Disables a submarine.

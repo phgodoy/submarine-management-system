@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sms.Domain.Entities;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
 
@@ -35,6 +34,13 @@ namespace Sms.Infra.Data.Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> Update(Submarine submarine)
+        {
+            _context.Submarines.Update(submarine);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<bool> DisableSubmarine(int id)
         {
             throw new NotImplementedException();
@@ -58,11 +64,6 @@ namespace Sms.Infra.Data.Repositories
         }
 
         public Task<bool> EnableSubmarine(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Submarine> Update(Submarine submarine)
         {
             throw new NotImplementedException();
         }

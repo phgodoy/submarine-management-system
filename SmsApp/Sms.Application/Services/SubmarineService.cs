@@ -57,18 +57,17 @@ namespace Sms.Application.Services
             return _mapper.Map<IEnumerable<SubmarineDto>>(result);
         }
 
-        public async Task<SubmarineDto> UpdateSubmarine(int id, SubmarineDto submarineDto)
+        public async Task<bool> UpdateSubmarine(SubmarineDto submarineDto)
         {
             var updateCommand = new UpdateSubmarineCommand(
-                id,
+                submarineDto.Id,
                 submarineDto.Name,
                 submarineDto.Model,
                 submarineDto.CreationDate,
                 submarineDto.SubmarineStatusDto.Id
             );
 
-            var result = await _mediator.Send(updateCommand);
-            return _mapper.Map<SubmarineDto>(result);
+            return await _mediator.Send(updateCommand);
         }
     }
 }
