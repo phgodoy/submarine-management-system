@@ -32,10 +32,12 @@ public class Submarine : Entity
         SubmarineStatusId = submarineStatusId;
     }
 
-
     public void Update(string name, string model, DateTime creationDate, SubmarineStatusEnum submarineStatusId)
     {
         ValidateDomain(name, model, creationDate);
+        Name = name;
+        Model = model;
+        CreationDate = creationDate;
         SubmarineStatusId = submarineStatusId;
     }
 

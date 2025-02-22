@@ -10,7 +10,7 @@ namespace Sms.Domain.Interfaces
 
         Task<Submarine> Create(Submarine submarine);
 
-        Task<Submarine> Update(Submarine submarine);
+        Task<bool> Update(Submarine submarine);
 
         Task<bool> DisableSubmarine(int id);
 

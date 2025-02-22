@@ -41,6 +41,26 @@ namespace Sms.WebApi.Controllers
         }
 
         /// <summary>
+        /// Updates an existing submarine.
+        /// </summary>
+        /// <param name="id">The submarine ID.</param>
+        /// <param name="submarineDto">Updated submarine data.</param>
+        /// <returns>The updated submarine.</returns>
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateSubmarine([FromBody] SubmarineDto submarineDto)
+        {
+            if (submarineDto == null || submarineDto.Id <= 0)
+                return BadRequest("Invalid submarine data.");
+
+            var updatedSubmarine = await _submarineService.UpdateSubmarine(submarineDto);
+
+            return Ok(updatedSubmarine);
+        }
+
+        /// <summary>
         /// Retrieves all registered submarines.
         /// </summary>
         /// <returns>A list of submarines.</returns>
