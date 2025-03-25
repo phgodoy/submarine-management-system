@@ -13,6 +13,8 @@ namespace Sms.Infra.Data.Context
 
         public DbSet<Submarine> Submarines { get; set; } 
         public DbSet<SubmarineStatus> SubmarineStatus { get; set; }
+        public DbSet<SubmarineSystem> SubmarineSystem { get; set; }
+        public DbSet<SystemStatus> SystemStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

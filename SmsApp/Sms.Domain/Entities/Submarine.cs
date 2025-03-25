@@ -12,6 +12,8 @@ public class Submarine : Entity
 
     public SubmarineStatusEnum SubmarineStatusId { get; private set; }
 
+    public IEnumerable<SubmarineSystem> SubmarineSystems { get; private set; }
+
     private Submarine() { }
 
     public Submarine(int id, string name, string model, DateTime creationDate, SubmarineStatusEnum submarineStatusId)
