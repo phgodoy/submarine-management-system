@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sms.Domain.Entities;
 using Sms.Domain.Enums;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
