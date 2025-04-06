@@ -1,4 +1,6 @@
-﻿namespace Sms.Domain.Interfaces
+﻿using Sms.Domain.Entities;
+
+namespace Sms.Domain.Interfaces
 {
     public interface ISubmarineRepository
     {
