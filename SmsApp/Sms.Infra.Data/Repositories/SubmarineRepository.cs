@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sms.Domain.Enums;
 using Sms.Domain.Interfaces;
 using Sms.Infra.Data.Context;
 
@@ -43,29 +44,48 @@ namespace Sms.Infra.Data.Repositories
 
         public async Task<bool> DisableSubmarine(int id)
         {
-            throw new NotImplementedException();
-            //if (id <= 0)
-            //    throw new ArgumentException("The ID must be greater than zero.", nameof(id));
+            bool systemEnable = true;
 
-            //var submarine = await GetSubmarineById(id);
+            if (id <= 0)
+                throw new ArgumentException("The ID must be greater than zero.", nameof(id));
 
-            //if (submarine == null)
-            //    throw new KeyNotFoundException($"No submarine system found with ID {id}.");
+            var submarine = await GetSubmarineById(id);
 
-            //if (submarine.Status.ToString() == "Disable")
-            //    return false;
+            if (submarine == null)
+                throw new KeyNotFoundException($"No submarine found with ID {id}.");
 
-            //submarine.UpdateOperationalStatus("Disable");
+            if (submarine.SubmarineStatusId == SubmarineStatusEnum.Deactivated)
+                systemEnable = false;
 
-            //_context.SubmarineSystems.Update(submarine);
-            //var changes = await _context.SaveChangesAsync();
+            submarine.UpdateSubmarineStatus(SubmarineStatusEnum.Deactivated);
 
-            //return changes > 0;
+            _context.Submarines.Update(submarine);
+            var changes = await _context.SaveChangesAsync();
+
+            return systemEnable;
         }
 
-        public Task<bool> EnableSubmarine(int id)
+        public async Task<bool> EnableSubmarine(int id)
         {
-            throw new NotImplementedException();
+            bool systemEnable = true;
+
+            if (id <= 0)
+                throw new ArgumentException("The ID must be greater than zero.", nameof(id));
+
+            var submarine = await GetSubmarineById(id);
+
+            if (submarine == null)
+                throw new KeyNotFoundException($"No submarine found with ID {id}.");
+
+            if (submarine.SubmarineStatusId == SubmarineStatusEnum.InOperation)
+                systemEnable = false;
+
+            submarine.UpdateSubmarineStatus(SubmarineStatusEnum.InOperation);
+
+            _context.Submarines.Update(submarine);
+            var changes = await _context.SaveChangesAsync();
+
+            return systemEnable;
         }
     }
 }

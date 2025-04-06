@@ -1,31 +1,24 @@
-﻿//using MediatR;
-//using Sms.Application.Submarines.Commands;
-//using Sms.Domain.Interfaces;
+﻿using MediatR;
+using Sms.Application.Submarines.Commands;
+using Sms.Domain.Interfaces;
 
-//namespace Sms.Application.Submarines.Handlers
-//{
-//    public class EnableSubmarineCommandHandler : IRequestHandler<EnableSubmarineCommand, bool>
-//    {
-//        private readonly ISubmarineRepository _repository;
+namespace Sms.Application.Submarines.Handlers
+{
+    public class EnableSubmarineCommandHandler : IRequestHandler<UpdateSubmarineStatusCommand, bool>
+    {
+        private readonly ISubmarineRepository _submarineRepository;
 
-//        public EnableSubmarineCommandHandler(ISubmarineRepository repository)
-//        {
-//            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-//        }
+        public EnableSubmarineCommandHandler(ISubmarineRepository submarineRepository)
+        {
+            _submarineRepository = submarineRepository ?? throw new ArgumentNullException(nameof(submarineRepository));
+        }
 
-//        public async Task<bool> Handle(EnableSubmarineCommand request, CancellationToken cancellationToken)
-//        {
-//            if (request == null)
-//                throw new ArgumentNullException(nameof(request), "The request cannot be null.");
+        public async Task<bool> Handle(UpdateSubmarineStatusCommand request, CancellationToken cancellationToken)
+        {
+            var submarine = await _submarineRepository.GetSubmarineById(request.Id);
+            if (submarine == null) return false;
 
-//            var submarine = await _repository.GetSubmarineById(request.Id);
-//            if (submarine == null)
-//                return false;
-
-//            submarine.Enable();
-//            await _repository.UpdateAsync(submarine);
-
-//            return true;
-//        }
-//    }
-//}
+            return await _submarineRepository.EnableSubmarine(submarine.ID);
+        }
+    }
+}

@@ -12,7 +12,7 @@ namespace Sms.Infra.Data.EntitiesConfiguration
 
             builder.Property(s => s.Id)
                 .HasColumnName("Id")
-                .IsRequired(); // Removido ValueGeneratedOnAdd()
+                .IsRequired();
 
             builder.Property(s => s.Name)
                 .HasColumnName("Name")

@@ -43,6 +43,11 @@ public class Submarine : Entity
         SubmarineStatusId = submarineStatusId;
     }
 
+    public void UpdateSubmarineStatus(SubmarineStatusEnum submarineStatus)
+    {
+        SubmarineStatusId = submarineStatus;
+    }
+
     private void ValidateDomain(string name, string model, DateTime creationDate)
     {
         DomainExceptionValidation.When(string.IsNullOrWhiteSpace(name), "Invalid: Name is required");
