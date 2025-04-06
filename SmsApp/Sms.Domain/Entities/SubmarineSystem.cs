@@ -47,6 +47,11 @@ namespace Sms.Domain.Entities
             Type = type;
         }
 
+        public void UpdateOperationalSystem(SystemStatusEnum systemStatus)
+        {
+            SystemStatusId = systemStatus;
+        }
+
         private void ValidateDomain(string name, string type, SystemStatusEnum systemStatus)
         {
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(name), "Invalid: name is required");
