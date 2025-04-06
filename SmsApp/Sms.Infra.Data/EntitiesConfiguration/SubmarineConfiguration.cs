@@ -24,12 +24,10 @@ public class SubmarineConfiguration : IEntityTypeConfiguration<Submarine>
             .HasColumnName("CreationDate")
             .IsRequired();
 
-        // Configuração da chave estrangeira para SubmarineStatus
         builder.Property(s => s.SubmarineStatusId)
             .HasColumnName("SubmarineStatusId")
             .IsRequired();
 
-        // Configuração do relacionamento com SubmarineStatus
         builder.HasOne(s => s.SubmarineStatus)
             .WithMany()
             .HasForeignKey(s => s.SubmarineStatusId)

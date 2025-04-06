@@ -33,13 +33,13 @@ namespace Sms.Application.Services
 
         public async Task<bool> DisableSubmarine(int id)
         {
-            var disableCommand = new DisableSubmarineCommand(id);
+            var disableCommand = new UpdateSubmarineStatusCommand(id);
             return await _mediator.Send(disableCommand);
         }
 
         public async Task<bool> EnableSubmarine(int id)
         {
-            var enableCommand = new EnableSubmarineCommand(id);
+            var enableCommand = new UpdateSubmarineStatusCommand(id);
             return await _mediator.Send(enableCommand);
         }
 

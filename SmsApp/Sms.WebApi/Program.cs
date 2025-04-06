@@ -11,7 +11,6 @@ namespace Sms.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Log inicial
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
 

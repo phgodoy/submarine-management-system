@@ -118,7 +118,7 @@ namespace Sms.WebApi.Controllers
             var claims = new[]
             {
                 new Claim("email", email),
-                new Claim("meuvalor", "oque voce quiser"),
+                new Claim("myValue", "anyting"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -130,15 +130,10 @@ namespace Sms.WebApi.Controllers
             var expiration = DateTime.UtcNow.AddMinutes(10);
 
             JwtSecurityToken token = new JwtSecurityToken(
-                //emissor
                 issuer: _configuration["Jwt:Issuer"],
-                //audiencia
                 audience: _configuration["Jwt:Audience"],
-                //claims
                 claims: claims,
-                //data de expiracao
                 expires: expiration,
-                //assinatura digital
                 signingCredentials: credentials
                 );
 

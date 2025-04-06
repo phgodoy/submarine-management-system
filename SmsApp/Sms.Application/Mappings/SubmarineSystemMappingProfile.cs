@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Sms.Application.Submarines.Commands;
 using Sms.Application.Dtos;
 using Sms.Domain.Entities;
 using Sms.Application.SubmarineSystems.Commands;

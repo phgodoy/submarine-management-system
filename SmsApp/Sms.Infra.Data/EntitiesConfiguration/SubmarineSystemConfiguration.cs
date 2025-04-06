@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sms.Domain.Entities;
-using Sms.Domain.Enums;
 
 namespace Sms.Infra.Data.Configurations
 {

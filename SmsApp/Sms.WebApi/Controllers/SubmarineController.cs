@@ -90,5 +90,31 @@ namespace Sms.WebApi.Controllers
 
             return Ok(submarine);
         }
+
+        /// <summary>
+        /// Disables a submarine.
+        /// </summary>
+        /// <param name="id">The submarine ID.</param>
+        /// <returns>Boolean indicating success.</returns>
+        [HttpPut("{id:int}/disable")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DisableSubmarineSystem(int id)
+        {
+            var result = await _submarineService.DisableSubmarine(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Enables a submarine.
+        /// </summary>
+        /// <param name="id">The submarine ID.</param>
+        /// <returns>Boolean indicating success.</returns>
+        [HttpPut("{id:int}/enable")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> EnableSubmarineSystem(int id)
+        {
+            var result = await _submarineService.EnableSubmarine(id);
+            return Ok(result);
+        }
     }
 }
