@@ -21,11 +21,12 @@ namespace Sms.Infra.Ioc
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             // Register repositories
-            services.AddScoped<ISubmarineRepository, SubmarineRepository>();
-
-
+            services.AddScoped<ISubmarineRepository, SubmarineRepository>();  
+            services.AddScoped<ISubmarineSystemRepository, SubmarineSystemRepository>();
+            
             // Register services
             services.AddScoped<ISubmarineService, SubmarineService>();
+            services.AddScoped<ISubmarineSystemService, SubmarineSystemService>();
             services.AddAutoMapper(typeof(SubmarineDto));
 
             // Register authenticate
