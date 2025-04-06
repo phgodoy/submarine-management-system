@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Sms.Application.Submarines.Commands;
+using Sms.Domain.Entities;
 using Sms.Domain.Interfaces;
 
 namespace Sms.Application.Submarines.Handlers

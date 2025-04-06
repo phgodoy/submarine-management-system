@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Sms.Domain.Entities;
 
 public class SubmarineConfiguration : IEntityTypeConfiguration<Submarine>
 {
