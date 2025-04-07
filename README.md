@@ -31,36 +31,36 @@ The solution follows **Clean Architecture** and is structured as:
 ---
 
 ## 🔐 Authentication
-    The API uses JWT authentication to protect secured endpoints. To access them:
+- The API uses JWT authentication to protect secured endpoints. To access them:
 
-    Log in using the provided credentials.
+- Log in using the provided credentials.
 
-    Copy the returned JWT token.
+- Copy the returned JWT token.
 
-    In Swagger, click "Authorize" and paste the token.
+- In Swagger, click "Authorize" and paste the token.
 
 ---
 
 ## 🎓 Purpose
-    This project was created for educational purposes to:
+- This project was created for educational purposes to:
 
-    Practice and understand the CQRS pattern
+- Practice and understand the CQRS pattern
 
-    Structure code following Clean Architecture
+- Structure code following Clean Architecture
 
-    Learn and implement JWT authentication
+- Learn and implement JWT authentication
 
-    Use Swagger for interactive documentation
+- Use Swagger for interactive documentation
 
-    Set up and run SQL Server in Docker
+- Set up and run SQL Server in Docker
 
-    Write unit tests using xUnit
+- Write unit tests using xUnit
 
 ---
 
 ## 🚀 Getting Started
 
-1. Clone the repository:
+1.Clone the repository:
    ```bash
    git clone https://github.com/your-username/sms.git
    cd sms
