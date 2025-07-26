@@ -79,13 +79,11 @@ The solution follows **Clean Architecture** and is structured as:
    ```bash
    dotnet run --project Sms.WebApi
    ```
-
 ---
 
 ## 🧪 Testing
-    Unit tests are written for domain logic, especially focusing on Submarine and SubmarineSystem entities.
-
-    To run the tests:
-    ```bash
+ Unit tests are written for domain logic, especially focusing on Submarine and SubmarineSystem entities.
+ To run the tests:
+   ```bash
     dotnet test Sms.Test
-    ```
+   ```
