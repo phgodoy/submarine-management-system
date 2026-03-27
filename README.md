@@ -72,8 +72,9 @@ The solution follows **Clean Architecture** and is structured as:
    ```
 3.Apply the migrations to the database:
    ```bash
-   docker-compose up -d
-   cd sms
+dotnet ef database update \
+--project Sms.Infra.Data \
+--startup-project Sms.WebApi
    ```
 4.Run the application:
    ```bash
