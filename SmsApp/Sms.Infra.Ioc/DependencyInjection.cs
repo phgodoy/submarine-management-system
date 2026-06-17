@@ -31,6 +31,7 @@ namespace Sms.Infra.Ioc
 
             // Register authenticate
             services.AddScoped<IAuthenticate, AuthenticateService>();
+            services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
             // Register MediatR handlers from assembly
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SubmarineService).Assembly));

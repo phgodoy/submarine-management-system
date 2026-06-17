@@ -15,36 +15,52 @@ namespace Sms.Infra.Data.Identity
             _userManager = userManager;
         }
 
-        public void SeedRoles()
+        public async Task SeedRolesAsync()
         {
-          if( _userManager.FindByEmailAsync("user@Localhost").Result == null )
+            if (!await _roleManager.RoleExistsAsync("User"))
             {
-                ApplicationUser user = new ApplicationUser();
-                user.UserName = "user@Localhost";
-                user.Email = "user@Localhost";
-                user.NormalizedUserName = "USER@LOCALHOST";
-                user.NormalizedEmail = "USER@LOCALHOST";
-                user.EmailConfirmed = true;
-                user.LockoutEnabled = false;
-                user.SecurityStamp = Guid.NewGuid().ToString();
-
-                IdentityResult result = _userManager.CreateAsync(user, "Numsey#2024").Result;
-
-                if (result.Succeeded) 
+                var roleResult = await _roleManager.CreateAsync(new IdentityRole
                 {
-                    _userManager.AddToRoleAsync(user, "User").Wait();
+                    Name = "User"
+                });
+
+                if (!roleResult.Succeeded)
+                {
+                    var errors = string.Join("; ", roleResult.Errors.Select(e => e.Description));
+                    throw new InvalidOperationException($"Failed to seed role 'User': {errors}");
                 }
             }
         }
 
-        public void SeedUsers()
+        public async Task SeedUsersAsync()
         {
-            if (!_roleManager.RoleExistsAsync("User").Result)
+            var existingUser = await _userManager.FindByEmailAsync("user@localhost");
+            if (existingUser != null)
             {
-                IdentityRole role = new IdentityRole();
-                role.Name = "User";
-                role.NormalizedName = "USER";
-                IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+                return;
+            }
+
+            var user = new ApplicationUser
+            {
+                UserName = "user@localhost",
+                Email = "user@localhost",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            var result = await _userManager.CreateAsync(user, "Numsey#2024");
+            if (!result.Succeeded)
+            {
+                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+                throw new InvalidOperationException($"Failed to seed user 'user@localhost': {errors}");
+            }
+
+            var addToRoleResult = await _userManager.AddToRoleAsync(user, "User");
+            if (!addToRoleResult.Succeeded)
+            {
+                var errors = string.Join("; ", addToRoleResult.Errors.Select(e => e.Description));
+                throw new InvalidOperationException($"Failed to assign role 'User' to 'user@localhost': {errors}");
             }
         }
     }

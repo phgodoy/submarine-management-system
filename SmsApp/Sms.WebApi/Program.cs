@@ -2,12 +2,14 @@ using Sms.Infra.Ioc;
 using Microsoft.AspNetCore.Identity;
 using Sms.Infra.Data.Context;
 using Sms.Infra.Data.Identity;
+using Sms.Domain.Accont;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sms.WebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,18 @@ namespace Sms.WebApi
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var dbContext = services.GetRequiredService<ApplicationDbContext>();
+                await dbContext.Database.MigrateAsync();
+
+                var seed = services.GetRequiredService<ISeedUserRoleInitial>();
+                await seed.SeedRolesAsync();
+                await seed.SeedUsersAsync();
+            }
+
             // Log o ambiente atual
             app.Logger.LogInformation("Starting application in {Environment} environment.", app.Environment.EnvironmentName);
 
@@ -55,7 +69,7 @@ namespace Sms.WebApi
             app.MapControllers();
 
             // Run the application
-            app.Run();
+            await app.RunAsync();
         }
     }
 }
