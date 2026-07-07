@@ -1,10 +1,14 @@
+# Build
 **/bin/
 **/obj/
 TestResults/
 
+# IDEs
 .vs/
 .idea/
 .run/
+
+# User-specific files
 *.user
 *.rsuser
 *.suo
