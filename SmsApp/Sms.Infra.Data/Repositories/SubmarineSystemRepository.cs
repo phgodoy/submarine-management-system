@@ -10,6 +10,11 @@ namespace Sms.Infra.Data.Repositories
     {
         private readonly ApplicationDbContext _context;
 
+        public SubmarineSystemRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<SubmarineSystem> CreateSubmarineSystem(SubmarineSystem submarineSystem)
         {
             _context.Add(submarineSystem);

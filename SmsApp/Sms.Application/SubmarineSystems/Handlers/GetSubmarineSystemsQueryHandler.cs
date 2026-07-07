@@ -21,12 +21,7 @@ namespace Sms.Application.SubmarineSystems.Handlers
         {
             var submarineSystems = await _submarineSystemRepository.GetSubmarineSystems();
 
-            if (submarineSystems == null || !submarineSystems.Any())
-            {
-                throw new ApplicationException("No submarine systems found.");
-            }
-
-            return _mapper.Map<IEnumerable<SubmarineSystemDto>>(submarineSystems);
+            return _mapper.Map<IEnumerable<SubmarineSystemDto>>(submarineSystems) ?? Enumerable.Empty<SubmarineSystemDto>();
         }
     }
 }

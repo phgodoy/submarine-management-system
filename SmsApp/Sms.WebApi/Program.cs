@@ -18,6 +18,7 @@ namespace Sms.WebApi
 
             // Add services to the container (only controllers for API)
             builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
 
             // Add Swagger
             builder.Services.AddInfrastructureSwagger();
@@ -51,11 +52,12 @@ namespace Sms.WebApi
             app.Logger.LogInformation("Starting application in {Environment} environment.", app.Environment.EnvironmentName);
 
             // Configure the HTTP request pipeline
-            if (app.Environment.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Sms.WebApi v1");
+                options.RoutePrefix = "swagger";
+            });
 
             // Enable HTTPS redirection
             app.UseHttpsRedirection();

@@ -81,12 +81,19 @@ namespace Sms.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSubmarineSystemById(int id)
         {
-            var system = await _submarineSystemService.GetSubmarineSystemsById(id);
+            try
+            {
+                var system = await _submarineSystemService.GetSubmarineSystemsById(id);
 
-            if (system == null)
+                if (system == null)
+                    return NotFound($"Submarine system with ID {id} not found.");
+
+                return Ok(system);
+            }
+            catch (KeyNotFoundException)
+            {
                 return NotFound($"Submarine system with ID {id} not found.");
-
-            return Ok(system);
+            }
         }
 
         /// <summary>
