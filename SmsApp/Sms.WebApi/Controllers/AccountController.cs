@@ -87,9 +87,18 @@ namespace Sms.WebApi.Controllers
             var registrationResult = await _authenticate.RegisterUser(request.Email, request.Password);
 
             // If registration fails
-            if (!registrationResult)
+            if (!registrationResult.Succeeded)
             {
-                return BadRequest(new { Message = "Error registering the user. Please try again later." });
+                return BadRequest(new
+                {
+                    Message = "Não foi possível registrar o usuário.",
+                    Errors = registrationResult.Errors.Select(error => new
+                    {
+                        Field = GetIdentityErrorField(error.Code),
+                        error.Code,
+                        Message = GetFriendlyIdentityErrorMessage(error.Code, error.Description)
+                    })
+                });
             }
 
             // Success response
@@ -141,6 +150,39 @@ namespace Sms.WebApi.Controllers
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = expiration
+            };
+        }
+
+        private static string GetIdentityErrorField(string code)
+        {
+            if (code.StartsWith("Password", StringComparison.OrdinalIgnoreCase))
+            {
+                return nameof(RegisterRequest.Password);
+            }
+
+            if (code.Contains("Email", StringComparison.OrdinalIgnoreCase) ||
+                code.Contains("UserName", StringComparison.OrdinalIgnoreCase))
+            {
+                return nameof(RegisterRequest.Email);
+            }
+
+            return "User";
+        }
+
+        private static string GetFriendlyIdentityErrorMessage(string code, string fallbackMessage)
+        {
+            return code switch
+            {
+                "PasswordTooShort" => "A senha deve ter pelo menos 6 caracteres.",
+                "PasswordRequiresUniqueChars" => "A senha deve conter caracteres diferentes entre si.",
+                "PasswordRequiresNonAlphanumeric" => "A senha deve conter pelo menos um caractere especial, como !, @, # ou $.",
+                "PasswordRequiresDigit" => "A senha deve conter pelo menos um número.",
+                "PasswordRequiresLower" => "A senha deve conter pelo menos uma letra minúscula.",
+                "PasswordRequiresUpper" => "A senha deve conter pelo menos uma letra maiúscula.",
+                "DuplicateUserName" => "Já existe um usuário cadastrado com este e-mail.",
+                "DuplicateEmail" => "Já existe um usuário cadastrado com este e-mail.",
+                "InvalidEmail" => "Informe um e-mail válido.",
+                _ => fallbackMessage
             };
         }
     }

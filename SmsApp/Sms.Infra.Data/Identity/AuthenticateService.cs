@@ -21,7 +21,7 @@ namespace Sms.Infra.Data.Identity
             return result.Succeeded;
         }
 
-        public async Task<bool> RegisterUser(string email, string password)
+        public async Task<RegisterUserResult> RegisterUser(string email, string password)
         {
             var applicationUser = new ApplicationUser
             {
@@ -34,9 +34,11 @@ namespace Sms.Infra.Data.Identity
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(applicationUser, isPersistent: false);
+                return RegisterUserResult.Success();
             }
 
-            return result.Succeeded;
+            return RegisterUserResult.Failed(
+                result.Errors.Select(error => new RegisterUserError(error.Code, error.Description)));
         }
 
         public async Task Logout()
