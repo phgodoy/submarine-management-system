@@ -1,15 +1,27 @@
-﻿version: '3.9'
-services:
+﻿services:
+
   sql-server:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: Submarine_Management_System_DB
     environment:
-      MSSQL_DB_NAME: Submarine_Management_System_DB
-      SA_USER: sa
-      SA_PASSWORD: 94Pepe3d2y
-      ACCEPT_EULA: Y
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${DB_PASSWORD}
     ports:
       - "1433:1433"
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ../SmsApp
+      dockerfile: Dockerfile
+    container_name: Submarine_Management_System_API
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql-server,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sql-server
     networks:
       - app-network
 

@@ -13,3 +13,6 @@ TestResults/
 *.rsuser
 *.suo
 *.sln.docstates
+
+# Docker-specific files
+docker/.env
