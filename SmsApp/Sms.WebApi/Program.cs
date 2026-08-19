@@ -32,7 +32,7 @@ namespace Sms.WebApi
                 .AddDefaultTokenProviders();
 
             // Configure JWT authentication
-            builder.Services.AddInfrastructureJWT(builder.Configuration);
+            builder.Services.AddInfrastructureJWT(builder.Configuration, builder.Environment);
 
             var app = builder.Build();
 

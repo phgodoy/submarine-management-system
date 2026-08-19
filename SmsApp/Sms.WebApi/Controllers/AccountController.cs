@@ -2,12 +2,9 @@
 using Sms.Domain.Accont;
 using Microsoft.AspNetCore.Authorization;
 using Sms.WebApi.Dtos;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using Sms.Infra.Data.Identity;
+using Sms.Infra.Ioc.Authentication;
 
 namespace Sms.WebApi.Controllers
 {
@@ -16,13 +13,13 @@ namespace Sms.WebApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticate _authenticate;
-        private readonly IConfiguration _configuration;
+        private readonly ITokenService _tokenService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(IAuthenticate authenticate, IConfiguration configuration, UserManager<ApplicationUser> userManager)
+        public AccountController(IAuthenticate authenticate, ITokenService tokenService, UserManager<ApplicationUser> userManager)
         {
             _authenticate = authenticate;
-            _configuration = configuration;
+            _tokenService = tokenService;
             _userManager = userManager;
         }
 
@@ -62,7 +59,7 @@ namespace Sms.WebApi.Controllers
             //var roles = await _userManager.GetRolesAsync(user);
 
             // Generate the JWT token with roles included
-            var token = GenerateToken(request.Email);
+            var token = _tokenService.GenerateToken(request.Email);
 
             // Return the token and expiration time
             return Ok(token);
@@ -114,43 +111,6 @@ namespace Sms.WebApi.Controllers
         {
             await _authenticate.Logout();
             return Ok(new { Message = "Logout successful." });
-        }
-
-        /// <summary>
-        /// Generates a JWT token for the user.
-        /// </summary>
-        /// <param name="email">User email</param>
-        /// <param name="roles">User roles</param>
-        /// <returns>Generated token</returns>
-        private UserToken GenerateToken(string email)
-        {
-            var claims = new[]
-            {
-                new Claim("email", email),
-                new Claim("myValue", "anyting"),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var privateKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
-
-            var credentials = new SigningCredentials(privateKey, SecurityAlgorithms.HmacSha256);
-
-            var expiration = DateTime.UtcNow.AddMinutes(10);
-
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: expiration,
-                signingCredentials: credentials
-                );
-
-            return new UserToken()
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration = expiration
-            };
         }
 
         private static string GetIdentityErrorField(string code)
