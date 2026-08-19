@@ -1,12 +1,10 @@
 namespace Sms.Infra.Ioc.Authentication;
 
-public sealed class LocalTokenService : ITokenService
+public sealed class LocalTokenService(string token) : ITokenService
 {
-    public const string Token = "local-token";
-
     public TokenResult GenerateToken(string email)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(email);
-        return new TokenResult(Token, DateTime.UtcNow.AddHours(1));
+        return new TokenResult(token, DateTime.UtcNow.AddHours(1));
     }
 }

@@ -13,9 +13,10 @@ public class FakeTokenServiceTests
     [Fact]
     public void Generates_fake_token()
     {
-        var result = new LocalTokenService().GenerateToken("teste@email.com");
+        const string token = "local-token";
+        var result = new LocalTokenService(token).GenerateToken("teste@email.com");
 
-        Assert.Equal(LocalTokenService.Token, result.Token);
+        Assert.Equal(token, result.Token);
         Assert.True(result.Expiration > DateTime.UtcNow);
     }
 
@@ -28,7 +29,8 @@ public class FakeTokenServiceTests
         {
             ["Jwt:SecretKey"] = "test-secret-key-with-at-least-32-characters",
             ["Jwt:Issuer"] = "test",
-            ["Jwt:Audience"] = "test"
+            ["Jwt:Audience"] = "test",
+            ["Jwt:LocalToken"] = "local-token"
         }).Build();
         var services = new ServiceCollection();
 
