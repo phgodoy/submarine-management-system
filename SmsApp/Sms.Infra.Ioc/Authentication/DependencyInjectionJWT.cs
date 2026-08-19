@@ -1,17 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using Sms.Infra.Ioc.Authentication;
 
 namespace Sms.Infra.Ioc
 {
     public static class DependencyInjectionJWT
     {
         public static IServiceCollection AddInfrastructureJWT(this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IHostEnvironment environment)
         {
+            var secretKey = configuration["Jwt:SecretKey"]
+                ?? throw new InvalidOperationException("Configuration setting 'Jwt:SecretKey' was not found.");
+
+            services.AddScoped<ITokenService>(_ => environment.IsDevelopment()
+                ? new LocalTokenService()
+                : new JwtTokenService(configuration));
 
             services.AddAuthentication(opt =>
             {
@@ -30,7 +39,7 @@ namespace Sms.Infra.Ioc
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(
-                         Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
+                         Encoding.UTF8.GetBytes(secretKey)),
                     ClockSkew = TimeSpan.Zero
                 };
             });
